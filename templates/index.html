@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>採用力診断</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+font-family:Arial;
+background:#f5f7fb;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:600px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.08);
+}
+
+.step{
+display:none;
+}
+
+.active{
+display:block;
+}
+
+h2{
+margin-top:0;
+}
+
+.radio label{
+display:block;
+border:1px solid #ddd;
+padding:12px;
+margin-top:10px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.radio input{
+margin-right:10px;
+}
+
+button{
+margin-top:25px;
+width:100%;
+padding:16px;
+font-size:18px;
+background:#2c7be5;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1f63c5;
+}
+
+.progress{
+width:100%;
+background:#eee;
+height:10px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.bar{
+height:10px;
+background:#2c7be5;
+width:0%;
+border-radius:10px;
+}
+
+input[type="text"]{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+.question{
+margin-top:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+<form action="/result" method="post">
+
+<!-- STEP0 会社名 -->
+
+<div class="step active">
+
+<h2>会社名を入力してください</h2>
+
+<input type="text" name="company" required>
+
+<button type="button" onclick="next()">次へ</button>
+
+</div>
+
+
+<!-- STEP1 接点 -->
+
+<div class="step">
+
+<h2>STEP1 接点</h2>
+
+<div class="question">
+過去1年で求人応募はありましたか
+<div class="radio">
+<label><input type="radio" name="contact1" value="2">ある</label>
+<label><input type="radio" name="contact1" value="1">一部ある</label>
+<label><input type="radio" name="contact1" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+過去1年で面接を実施しましたか
+<div class="radio">
+<label><input type="radio" name="contact2" value="2">ある</label>
+<label><input type="radio" name="contact2" value="1">一部ある</label>
+<label><input type="radio" name="contact2" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+職場見学を受け入れたことがありますか
+<div class="radio">
+<label><input type="radio" name="contact3" value="2">ある</label>
+<label><input type="radio" name="contact3" value="1">一部ある</label>
+<label><input type="radio" name="contact3" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+社員紹介で採用したことがありますか
+<div class="radio">
+<label><input type="radio" name="contact4" value="2">ある</label>
+<label><input type="radio" name="contact4" value="1">一部ある</label>
+<label><input type="radio" name="contact4" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+採用イベントに参加したことがありますか
+<div class="radio">
+<label><input type="radio" name="contact5" value="2">ある</label>
+<label><input type="radio" name="contact5" value="1">一部ある</label>
+<label><input type="radio" name="contact5" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+求人問い合わせがありますか
+<div class="radio">
+<label><input type="radio" name="contact6" value="2">ある</label>
+<label><input type="radio" name="contact6" value="1">一部ある</label>
+<label><input type="radio" name="contact6" value="0">ない</label>
+</div>
+</div>
+
+<button type="button" onclick="next()">次へ</button>
+
+</div>
+
+
+<!-- STEP2 求人力 -->
+
+<div class="step">
+
+<h2>STEP2 求人力</h2>
+
+<div class="question">
+求人に職場写真がありますか
+<div class="radio">
+<label><input type="radio" name="recruit1" value="2">ある</label>
+<label><input type="radio" name="recruit1" value="1">一部ある</label>
+<label><input type="radio" name="recruit1" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+仕事内容を具体的に書いていますか
+<div class="radio">
+<label><input type="radio" name="recruit2" value="2">ある</label>
+<label><input type="radio" name="recruit2" value="1">一部ある</label>
+<label><input type="radio" name="recruit2" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+給与条件を明確にしていますか
+<div class="radio">
+<label><input type="radio" name="recruit3" value="2">ある</label>
+<label><input type="radio" name="recruit3" value="1">一部ある</label>
+<label><input type="radio" name="recruit3" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+1日の流れを書いていますか
+<div class="radio">
+<label><input type="radio" name="recruit4" value="2">ある</label>
+<label><input type="radio" name="recruit4" value="1">一部ある</label>
+<label><input type="radio" name="recruit4" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+会社雰囲気の写真がありますか
+<div class="radio">
+<label><input type="radio" name="recruit5" value="2">ある</label>
+<label><input type="radio" name="recruit5" value="1">一部ある</label>
+<label><input type="radio" name="recruit5" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+求人情報を更新していますか
+<div class="radio">
+<label><input type="radio" name="recruit6" value="2">ある</label>
+<label><input type="radio" name="recruit6" value="1">一部ある</label>
+<label><input type="radio" name="recruit6" value="0">ない</label>
+</div>
+</div>
+
+<button type="button" onclick="next()">次へ</button>
+
+</div>
+
+
+<!-- STEP3 認知 -->
+
+<div class="step">
+
+<h2>STEP3 認知</h2>
+
+<div class="question">
+ホームページがありますか
+<div class="radio">
+<label><input type="radio" name="recognition1" value="2">ある</label>
+<label><input type="radio" name="recognition1" value="1">一部ある</label>
+<label><input type="radio" name="recognition1" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+SNSを運用していますか
+<div class="radio">
+<label><input type="radio" name="recognition2" value="2">ある</label>
+<label><input type="radio" name="recognition2" value="1">一部ある</label>
+<label><input type="radio" name="recognition2" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+Googleマップ掲載ありますか
+<div class="radio">
+<label><input type="radio" name="recognition3" value="2">ある</label>
+<label><input type="radio" name="recognition3" value="1">一部ある</label>
+<label><input type="radio" name="recognition3" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+求人媒体掲載していますか
+<div class="radio">
+<label><input type="radio" name="recognition4" value="2">ある</label>
+<label><input type="radio" name="recognition4" value="1">一部ある</label>
+<label><input type="radio" name="recognition4" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+外観で何の会社かわかりますか
+<div class="radio">
+<label><input type="radio" name="recognition5" value="2">ある</label>
+<label><input type="radio" name="recognition5" value="1">一部ある</label>
+<label><input type="radio" name="recognition5" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+会社名検索で出てきますか
+<div class="radio">
+<label><input type="radio" name="recognition6" value="2">ある</label>
+<label><input type="radio" name="recognition6" value="1">一部ある</label>
+<label><input type="radio" name="recognition6" value="0">ない</label>
+</div>
+</div>
+
+<button type="button" onclick="next()">次へ</button>
+
+</div>
+
+
+<!-- STEP4 組織力 -->
+
+<div class="step">
+
+<h2>STEP4 組織力</h2>
+
+<div class="question">
+教育担当はいますか
+<div class="radio">
+<label><input type="radio" name="organization1" value="2">ある</label>
+<label><input type="radio" name="organization1" value="1">一部ある</label>
+<label><input type="radio" name="organization1" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+研修制度がありますか
+<div class="radio">
+<label><input type="radio" name="organization2" value="2">ある</label>
+<label><input type="radio" name="organization2" value="1">一部ある</label>
+<label><input type="radio" name="organization2" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+定期面談がありますか
+<div class="radio">
+<label><input type="radio" name="organization3" value="2">ある</label>
+<label><input type="radio" name="organization3" value="1">一部ある</label>
+<label><input type="radio" name="organization3" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+社員紹介がありますか
+<div class="radio">
+<label><input type="radio" name="organization4" value="2">ある</label>
+<label><input type="radio" name="organization4" value="1">一部ある</label>
+<label><input type="radio" name="organization4" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+平均勤続3年以上ですか
+<div class="radio">
+<label><input type="radio" name="organization5" value="2">ある</label>
+<label><input type="radio" name="organization5" value="1">一部ある</label>
+<label><input type="radio" name="organization5" value="0">ない</label>
+</div>
+</div>
+
+<div class="question">
+社内コミュニケーション良いですか
+<div class="radio">
+<label><input type="radio" name="organization6" value="2">ある</label>
+<label><input type="radio" name="organization6" value="1">一部ある</label>
+<label><input type="radio" name="organization6" value="0">ない</label>
+</div>
+</div>
+
+<button type="submit">診断結果を見る</button>
+
+</div>
+
+</form>
+
+</div>
+
+<script>
+
+let step=0
+const steps=document.querySelectorAll(".step")
+const bar=document.getElementById("bar")
+
+function next(){
+
+steps[step].classList.remove("active")
+
+step++
+
+steps[step].classList.add("active")
+
+bar.style.width=((step)/(steps.length-1)*100)+"%"
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+})
+
+}
+
+</script>
+
+</body>
+</html>
